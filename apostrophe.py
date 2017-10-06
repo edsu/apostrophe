@@ -12,12 +12,14 @@ tweets = twarc.Twarc()
 
 count = 0
 for tweet in tweets.filter('trump,russia,fakenews,korea,nuclear,politics'):
+
+    # print out a dot every 100th tweet we read
     if count % 100 == 0:
         sys.stderr.write(".")
         sys.stderr.flush()
+    count += 1
 
-    count +=1 
-
+    # got one!
     if 'text' in tweet and '`' in tweet['text']:
         sys.stderr.write("💥")
         sys.stderr.flush()
