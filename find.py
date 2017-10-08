@@ -20,7 +20,7 @@ output.writerow(json2csv.get_headings())
 
 for line in open("apostrophe.json"):
     tweet = json.loads(line)
-    if tweet.get('retweet_status') == None \
+    if tweet.get('retweeted_status') == None \
             and tweet["user"]["time_zone"] in time_zones \
             and tweet["lang"] == "en":
         output.writerow(json2csv.get_row(tweet))
