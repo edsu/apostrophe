@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-Find tweets that use a ` from users who say they are in the United States.
+Find tweets that appear to be in English that use a ` from users who say they 
+are in the United States.
 """
 
 import csv
