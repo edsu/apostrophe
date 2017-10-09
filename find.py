@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
 """
-Find tweets that appear to be in English that use a ` from users who say they 
-are in the United States.
+
+Find tweets that:
+
+- use a `
+- do not use a ' (appears to be legit quoting)
+- is in the English language (as detected by Twitter0
+- is sent from a user in a US timezone
+
 """
 
 import csv
@@ -23,5 +29,7 @@ for line in open("apostrophe.json"):
     tweet = json.loads(line)
     if tweet.get('retweeted_status') == None \
             and tweet["user"]["time_zone"] in time_zones \
-            and tweet["lang"] == "en":
+            and tweet["lang"] == "en" \
+            and "'" not in tweet["text"] \
+            and "’" not in tweet["text"]:
         output.writerow(json2csv.get_row(tweet))
