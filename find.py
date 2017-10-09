@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Find tweets that appear to be in English that use a ` from users who say they 
