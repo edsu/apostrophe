@@ -6,14 +6,23 @@ Find tweets that:
 
 - use a `
 - do not use a ' (appears to be legit quoting)
-- is in the English language (as detected by Twitter0
-- is sent from a user in a US timezone
+- are in the English language (as detected by Twitter)
+- are sent from a user purporting to be in a US timezone
+
+Write them out as a CSV.
+
+Also, fetch the current metadata for any discovered users and append it to a 
+file in the users directory so the users stats (follower, following, etc) 
+can be tracked over time.
 
 """
 
 import csv
 import json
+import twarc
 import json2csv
+
+twitter = twarc.Twarc()
 
 time_zones = [
     "Eastern Time (US & Canada)",
@@ -24,6 +33,7 @@ time_zones = [
 
 output = csv.writer(open("tweets.csv", "w"))
 output.writerow(json2csv.get_headings())
+user_ids = set()
 
 for line in open("apostrophe.json"):
     tweet = json.loads(line)
@@ -33,3 +43,8 @@ for line in open("apostrophe.json"):
             and "'" not in tweet["text"] \
             and "’" not in tweet["text"]:
         output.writerow(json2csv.get_row(tweet))
+        user_ids.add(tweet["user"]["id_str"])
+
+for user in twitter.user_lookup(user_ids=user_ids):
+    fh = open("users/%s.jsonl" % user['id_str'], "at")
+    fh.write(json.dumps(user) + "\n")
