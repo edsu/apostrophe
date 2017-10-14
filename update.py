@@ -20,6 +20,7 @@ can be tracked over time.
 import csv
 import json
 import twarc
+import datetime
 import json2csv
 
 twitter = twarc.Twarc()
@@ -45,6 +46,7 @@ for line in open("apostrophe.json"):
         output.writerow(json2csv.get_row(tweet))
         user_ids.add(tweet["user"]["id_str"])
 
+t = datetime.datetime.utcnow().isoformat()
 for user in twitter.user_lookup(user_ids=user_ids):
-    fh = open("users/%s.jsonl" % user['id_str'], "at")
-    fh.write(json.dumps(user) + "\n")
+    fh = open("users/%s.tsv" % user['id_str'], "at")
+    fh.write(t + "\t" + json.dumps(user) + "\n")
