@@ -26,10 +26,14 @@ import json2csv
 twitter = twarc.Twarc()
 
 time_zones = [
+    "Newfoundland Time (Canada)",
+    "Atlantic Time" (Canada)",
     "Eastern Time (US & Canada)",
     "Central Time (US & Canada)",
     "Mountain Time (US & Canada)",
-    "Pacific Time (US & Canada)"
+    "Pacific Time (US & Canada)",
+    "Alaska Time (US)",
+    "Hawaii-Aleutian Time (US)"
 ]
 
 output = csv.writer(open("tweets.csv", "w"))
